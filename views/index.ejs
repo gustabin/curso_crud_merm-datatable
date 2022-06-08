@@ -48,8 +48,8 @@
               <th><%= user.email %></th>
               <th><%= user.rol %></th>
               <td>
-                <a href="/edit" class="btn btn-info">Edit </a>
-                <a href="/delete" class="btn btn-danger">Delete</a>              
+                <a href="/edit/<%= user.id %>" class="btn btn-info">Edit </a>
+                <a href="/delete/<%= user.id %>" class="btn btn-danger">Delete</a>              
               </td>
             </tr>          
             
