@@ -11,22 +11,22 @@ router.get('/', (req, res) => {
             throw error;
         } else {
             // res.send(results);
-            res.render('index', { results: results })
+            res.render('users', { results: results })
         }
     })
 })
 
-router.get('/create', (req, res) => {
-    res.render('create')
+router.get('/createUser', (req, res) => {
+    res.render('createUser')
 })
 
-router.get('/edit/:id', (req, res) => {
+router.get('/editUser/:id', (req, res) => {
     const id = req.params.id;
     conexion.query('SELECT * FROM users WHERE id= ?', [id], (error, results) => {
         if(error){
             throw error;
         } else {
-            res.render('edit', { user: results[0] })
+            res.render('editUser', { user: results[0] })
         }
     })
 })
@@ -34,10 +34,10 @@ router.get('/edit/:id', (req, res) => {
 //to invoke the methods for the CRUD of users
 const userController = require('../controllers/userController')
 
-router.post('/save', userController.save)
-router.post('/update', userController.update)
+router.post('/saveUser', userController.saveUser)
+router.post('/updateUser', userController.updateUser)
 
-router.get('/delete/:id', (req, res) => {
+router.get('/deleteUser/:id', (req, res) => {
     const id = req.params.id
     conexion.query('DELETE FROM users WHERE id= ?', [id], (error, results) => {
         if(error){
