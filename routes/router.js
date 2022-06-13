@@ -4,7 +4,7 @@ const router = express.Router()
 //Invoke the database connection
 const conexion = require('../database/db')
 
-router.get('/', (req, res) => {
+router.get('/users', (req, res) => {
     // res.send('hola mundo')    
     conexion.query('SELECT * FROM users', (error, results) => {
         if(error){
@@ -33,6 +33,8 @@ router.get('/editUser/:id', (req, res) => {
 
 //to invoke the methods for the CRUD of users
 const userController = require('../controllers/userController')
+const authController = require('../controllers/authController')
+const { Router } = require('express')
 
 router.post('/saveUser', userController.saveUser)
 router.post('/updateUser', userController.updateUser)
@@ -48,5 +50,7 @@ router.get('/deleteUser/:id', (req, res) => {
     })
 });
 
+
+router.get('/logout', authController.logout)
 
 module.exports = router;
