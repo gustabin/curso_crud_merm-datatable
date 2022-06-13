@@ -45,12 +45,15 @@ router.get('/deleteUser/:id', (req, res) => {
         if(error){
             throw error;
         } else {
-            res.redirect('/')
+            res.redirect('/users')
         }
     })
 });
 
-
+//router for views
+router.get('/', (req, res) => {
+    res.render('index')
+})
 router.get('/logout', authController.logout)
 
 module.exports = router;
