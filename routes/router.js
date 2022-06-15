@@ -54,10 +54,11 @@ router.get('/deleteUser/:id', (req, res) => {
 router.get('/', (req, res) => {
     res.render('index')
 })
+
 router.get('/logout', authController.logout)
 
 router.get('/login', (req, res) => {
-    res.render('login')
+    res.render('login', { alert:false })
 })
 
 router.get('/register', (req, res) => {
@@ -66,5 +67,6 @@ router.get('/register', (req, res) => {
 
 router.post('/register', authController.register)
 
+router.post('/login', authController.login)
 
 module.exports = router;
