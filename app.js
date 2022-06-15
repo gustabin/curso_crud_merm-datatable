@@ -3,12 +3,14 @@ const app = express()
 const path = require('path')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
-
-dotenv.config({path: './env/.env'})
+const { json } = require('express')
 
 app.set('view engine', 'ejs')
+dotenv.config({path: './env/.env'})
+
 
 app.use(express.urlencoded({extended:false}))
+//app.use(express(json))
 //app.use(cookieParser)
 
 // import the router

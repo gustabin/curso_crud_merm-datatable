@@ -11,6 +11,7 @@ exports.saveUser = (req, res) => {
     conexion.query('INSERT INTO users SET ?', {email:email, name:name, rol:rol}, (error, results) => {
         if(error) {
             console.error(error)
+            
         } else {
             res.redirect('/');
         }
