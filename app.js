@@ -11,7 +11,7 @@ dotenv.config({path: './env/.env'})
 
 app.use(express.urlencoded({extended:false}))
 //app.use(express(json))
-//app.use(cookieParser)
+app.use(cookieParser())
 
 // import the router
 app.use('/', require('./routes/router'))

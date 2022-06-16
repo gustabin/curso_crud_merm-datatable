@@ -1,9 +1,19 @@
 const express = require('express')
 const router = express.Router()
 
+//to invoke the methods for the CRUD of users
+const userController = require('../controllers/userController')
+const authController = require('../controllers/authController')
+const { Router } = require('express')
+
+
+//path to send the data in json format
+const { json } = require('express');
+
 //Invoke the database connection
 const conexion = require('../database/db')
 
+//path to retrieve all users
 router.get('/users', (req, res) => {
     // res.send('hola mundo')    
     conexion.query('SELECT * FROM users', (error, results) => {
@@ -16,10 +26,12 @@ router.get('/users', (req, res) => {
     })
 })
 
+//path to create a record
 router.get('/createUser', (req, res) => {
     res.render('createUser')
 })
 
+//path to edit a selected record
 router.get('/editUser/:id', (req, res) => {
     const id = req.params.id;
     conexion.query('SELECT * FROM users WHERE id= ?', [id], (error, results) => {
@@ -31,14 +43,7 @@ router.get('/editUser/:id', (req, res) => {
     })
 })
 
-//to invoke the methods for the CRUD of users
-const userController = require('../controllers/userController')
-const authController = require('../controllers/authController')
-const { Router } = require('express')
-
-router.post('/saveUser', userController.saveUser)
-router.post('/updateUser', userController.updateUser)
-
+//path to delete a selected record
 router.get('/deleteUser/:id', (req, res) => {
     const id = req.params.id
     conexion.query('DELETE FROM users WHERE id= ?', [id], (error, results) => {
@@ -50,8 +55,13 @@ router.get('/deleteUser/:id', (req, res) => {
     })
 });
 
+
+router.post('/saveUser', userController.saveUser)
+router.post('/updateUser', userController.updateUser)
+
+
 //router for views
-router.get('/', (req, res) => {
+router.get('/', authController.isAuthenticated, (req, res) => {
     res.render('index')
 })
 
@@ -66,7 +76,6 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/register', authController.register)
-
 router.post('/login', authController.login)
 
 module.exports = router;
