@@ -62,7 +62,7 @@ router.post('/updateUser', userController.updateUser)
 
 //router for views
 router.get('/', authController.isAuthenticated, (req, res) => {
-    res.render('index')
+    res.render('index', { userName: row.name, titleWeb: "Control Dashboard"})
 })
 
 router.get('/logout', authController.logout)
@@ -77,5 +77,18 @@ router.get('/register', (req, res) => {
 
 router.post('/register', authController.register)
 router.post('/login', authController.login)
+
+router.post('/upload/:id', (req, res) => {
+    const id = req.params.id
+    const image = req.file.filename
+
+    conexion.query('UPDATE users SET ? WHERE id= ?', [{image:image}, id], (error, results) => {
+        if(error){
+            console.error(error);
+        } else {
+            res.redirect('/users')
+        }
+    })
+})
 
 module.exports = router;
