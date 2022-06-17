@@ -21,14 +21,14 @@ router.get('/users', (req, res) => {
             throw error;
         } else {
             // res.send(results);
-            res.render('users', { results: results })
+            res.render('users', { results: results, titleWeb: "List users" })
         }
     })
 })
 
 //path to create a record
 router.get('/createUser', (req, res) => {
-    res.render('createUser')
+    res.render('createUser', { titleWeb: "Create user"})
 })
 
 //path to edit a selected record
@@ -38,7 +38,7 @@ router.get('/editUser/:id', (req, res) => {
         if(error){
             throw error;
         } else {
-            res.render('editUser', { user: results[0] })
+            res.render('editUser', { user: results[0], titleWeb: "Edit user" })
         }
     })
 })
@@ -62,7 +62,7 @@ router.post('/updateUser', userController.updateUser)
 
 //router for views
 router.get('/', authController.isAuthenticated, (req, res) => {
-    res.render('index', { userName: row.name, titleWeb: "Control Dashboard"})
+    res.render('index', { userName: row.name, image: row.image, titleWeb: "Control Dashboard"})
 })
 
 router.get('/logout', authController.logout)

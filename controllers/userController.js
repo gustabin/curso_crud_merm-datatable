@@ -1,9 +1,6 @@
 //invoke the DB connection
 const conexion = require('../database/db')
 
-//import form-data
-//const FormData = require('form-data');
-
 //procedure to save
 exports.saveUser = (req, res) => {
     const email = req.body.email
