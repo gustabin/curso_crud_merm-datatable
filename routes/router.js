@@ -14,31 +14,43 @@ const { json } = require('express');
 const conexion = require('../database/db')
 
 //path to retrieve all users
-router.get('/users', (req, res) => {
+router.get('/users', authController.isAuthenticated, (req, res) => {
     // res.send('hola mundo')    
     conexion.query('SELECT * FROM users', (error, results) => {
         if(error){
             throw error;
         } else {
             // res.send(results);
-            res.render('users', { results: results, titleWeb: "List users" })
+            if (row.rol=="Admin") { 
+                res.render('users', { results: results, titleWeb: "List users" })
+            } else {
+                res.render('index', { userName: row.name, image: row.image, titleWeb: "Control Dashboard"})
+            }
         }
     })
 })
 
 //path to create a record
-router.get('/createUser', (req, res) => {
-    res.render('createUser', { titleWeb: "Create user"})
+router.get('/createUser', authController.isAuthenticated, (req, res) => {
+    if (row.rol=="Admin") {        
+        res.render('createUser', { titleWeb: "Create user"})
+    } else {
+        res.render('index', { userName: row.name, image: row.image, titleWeb: "Control Dashboard"})
+    }
 })
 
 //path to edit a selected record
-router.get('/editUser/:id', (req, res) => {
+router.get('/editUser/:id', authController.isAuthenticated, (req, res) => {
     const id = req.params.id;
     conexion.query('SELECT * FROM users WHERE id= ?', [id], (error, results) => {
         if(error){
             throw error;
         } else {
-            res.render('editUser', { user: results[0], titleWeb: "Edit user" })
+            if(row.rol=="Admin") {
+                res.render('editUser', { user: results[0], titleWeb: "Edit user" })
+            } else {
+                res.render('index', { userName: row.name, image: row.image, titleWeb: "Control Dashboard"})
+            }
         }
     })
 })

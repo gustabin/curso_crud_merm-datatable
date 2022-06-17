@@ -1,6 +1,6 @@
 <%- include("template/header") %>
 <%- include("template/navbar") %>
-<%- include("template/aside") %>
+<%- include("template/aside") %> 
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -48,7 +48,7 @@
                     <div class="row">
                       <div class="col-sm-12">
                         <form action="/upload/<%= user.id %>" method="POST" enctype="multipart/form-data">
-                          <input type="file" name="image" class="btn btn-secondary">
+                          <input type="file" name="image" class="btn btn-secondary" required>
                           <button type="submit" class="btn btn-primary">
                             Upload
                           </button>
