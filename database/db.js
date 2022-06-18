@@ -5,10 +5,6 @@ const conexion = mysql.createConnection({
     user : process.env.DB_USER,
     password : process.env.DB_PASS,
     database : process.env.DB_DATABASE,
-    // host : 'www.gustabin.com',
-    // user : 'tutornodejs',
-    // password : '1234567890',
-    // database : 'crud_nodejs',
 })
 
 conexion.connect ((error) => {
